@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Reverie | Digital Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+    
+    <!-- Floating Leaves Container -->
+    <div id="floating-leaves-container"></div>
+
+    <div class="vines-decoration vines-left">
+        <svg viewBox="0 0 100 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="vine-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0a1a0f" />
+                    <stop offset="50%" stop-color="#4ade80" />
+                    <stop offset="100%" stop-color="#0a1a0f" />
+                </linearGradient>
+                <filter id="organic-grain">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+                    <feComposite operator="in" in="noise" in2="SourceGraphic" result="composite" />
+                    <feBlend mode="multiply" in="composite" in2="SourceGraphic" />
+                </filter>
+                <filter id="shadow-deep">
+                    <feDropShadow dx="4" dy="4" stdDeviation="5" flood-opacity="0.6" />
+                </filter>
+            </defs>
+            <path class="vine-3d"
+                d="M10 0C10 50 40 100 40 150C40 200 10 250 10 300C10 350 50 400 50 450C50 500 20 550 20 600C20 650 60 700 60 750C60 800 60 850 60 900"
+                stroke="url(#vine-grad)" stroke-width="5" filter="url(#organic-grain) url(#shadow-deep)" />
+            <!-- Realistic Leaves with Veins -->
+            <g transform="translate(12, 60)" filter="url(#shadow-deep)">
+                <ellipse cx="0" cy="0" rx="10" ry="14" fill="#2d5a27" transform="rotate(-30)" />
+                <path d="M-5,0 L5,0 M0,-7 L0,7" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+            </g>
+            <g transform="translate(38, 140)" filter="url(#shadow-deep)">
+                <ellipse cx="0" cy="0" rx="8" ry="12" fill="#4ade80" transform="rotate(20)" />
+                <path d="M-4,0 L4,0 M0,-6 L0,6" stroke="rgba(0,0,0,0.1)" stroke-width="1" />
+            </g>
+        </svg>
+    </div>
+    <div class="vines-decoration vines-right">
+        <svg viewBox="0 0 100 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="vine-3d"
+                d="M10 0C10 80 50 160 50 240C50 320 10 400 10 480C10 560 60 640 60 720C60 800 60 880 60 960"
+                stroke="url(#vine-grad)" stroke-width="4" filter="url(#shadow)" />
+            <circle class="leaf" cx="48" cy="230" r="6" fill="#2d5a27" filter="url(#shadow)" />
+            <circle class="leaf" cx="12" cy="470" r="5" fill="#4ade80" filter="url(#shadow)" />
+        </svg>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">KENT.</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#roots">Roots</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+        <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+        <a href="#work" class="mobile-nav-link">Work</a>
+        <a href="#roots" class="mobile-nav-link">Roots</a>
+        <a href="#about" class="mobile-nav-link">About</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+    <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="name-container">
+                <h2 class="full-name">Reymond Kent A. Montecillo</h2>
+            </div>
+            <h1 class="reveal-text">Building<br><span>Digital Futures.</span></h1>
+
+            <!-- Profile Avatar -->
+            <div class="avatar-wrap" id="avatar-wrap">
+                <div class="avatar-circle" id="avatar-circle-hero">
+                    <span class="avatar-placeholder"></span>
+                    <img src="assets\profile.jpg" alt="Kent Montecillo" class="avatar-img">
+                </div>
+                <!-- Vine canvas injected by JS -->
+            </div>
+
+            <p class="reveal-text">Fullstack Developer &amp; IT Graduate dedicated to crafting seamless end-to-end web
+                experiences.</p>
+            <a href="#work" class="cta-btn reveal-text">View My Growth</a>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section class="section" id="work">
+        <h2 class="section-title reveal">Featured <span>Projects</span></h2>
+        <div class="botanical-grid">
+            <!-- Project 1 -->
+            <div class="botanical-card" data-project="nutrideq">
+                <div class="card-image">
+                    <div id="nutrideq-dna" class="dna-canvas-container"></div>
+                </div>
+                <div class="card-info-overlay">
+                    <div class="card-meta">Specimen No. 01</div>
+                    <h3>NutriDeq</h3>
+                    <p>Clinical nutrition information system and medical dashboard architected for healthcare
+                        professionals.</p>
+                    <a href="https://nutrideq-z472.onrender.com/" target="_blank" class="view-btn">Examine
+                        Project &rarr;</a>
+                </div>
+            </div>
+            <!-- Project 2 -->
+            <div class="botanical-card" data-project="hydria">
+                <div class="card-image">
+                    <div id="hydria-building" class="dna-canvas-container"></div>
+                </div>
+                <div class="card-info-overlay">
+                    <div class="card-meta">Specimen No. 02</div>
+                    <h3>Hydria</h3>
+                    <p>High-performance web platform focused on fluid user experiences and robust backend architecture.
+                    </p>
+                    <a href="https://hydria-88yj.onrender.com/" target="_blank" class="view-btn">Examine Project
+                        &rarr;</a>
+                </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="botanical-card" data-project="sprout">
+                <div class="card-image">
+                    <div id="sprout-clock" class="dna-canvas-container"></div>
+                </div>
+                <div class="card-info-overlay">
+                    <div class="card-meta">Specimen No. 03</div>
+                    <h3>Project-Web-app</h3>
+                    <p>Progressive web application showcasing mobile-first design and modern frontend engineering.</p>
+                    <a href="https://gitloggers.github.io/Project-Web-app/" target="_blank" class="view-btn">Examine
+                        Project &rarr;</a>
+                </div>
+            </div>
+            <!-- Project 4 -->
+            <div class="botanical-card reveal" data-project="luna">
+                <div class="card-image">
+                    <div id="luna-globe" class="dna-canvas-container"></div>
+                </div>
+                <div class="card-info-overlay">
+                    <div class="card-meta">Specimen No. 04</div>
+                    <h3>LUNA Foodhub</h3>
+                    <p>Location-aware food discovery platform with AI-powered recommendations and real-time venue
+                        intelligence.</p>
+                    <a href="https://luna-foodhub.vercel.app/" target="_blank" class="view-btn">Examine
+                        Project &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roots (Skills) Section -->
+    <section class="section" id="roots">
+        <h2 class="section-title reveal">My <span>Roots</span></h2>
+        <div class="skills-grid">
+            <div class="skill-item reveal">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <h4>Frontend</h4>
+                <p>HTML, CSS, JS, React, GSAP, ControllTrigger, Three</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                        <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
+                </div>
+                <h4>Backend</h4>
+                <p>Node.js, PHP, Express</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <ellipse cx="12" cy="5" rx="9" ry="3" />
+                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                    </svg>
+                </div>
+                <h4>Database</h4>
+                <p>MySQL, MongoDB, PostgreSQL</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                </div>
+                <h4>Architecture</h4>
+                <p>SDLC, ERD, System Design</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="about-flex">
+            <div class="about-text reveal">
+                <h2 class="section-title">The <span>Architect</span></h2>
+                <p>I am a graduate with a Bachelor of Science in Information Technology, driven by a commitment to
+                    engineering end-to-end digital solutions. My expertise spans the full development lifecycle—from
+                    crafting precise, responsive frontends to designing robust, scalable backend systems.</p>
+                <p>I do not merely write code; I architect purposeful experiences. Whether developing clinical
+                    information systems or progressive web applications, I uphold the highest standards of performance,
+                    maintainability, and clean architecture.</p>
+            </div>
+            <div class="about-stats reveal">
+                <div class="stat-box">
+                    <span class="stat-val">B.S.</span>
+                    <span class="stat-label">Information Technology</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-val">Full</span>
+                    <span class="stat-label">Stack Focus</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="contact-header reveal">
+            <div class="contact-glow-ring"></div>
+            <h2 class="section-title">Get in <span>Touch</span></h2>
+            <p class="contact-subtitle">Ready to start a new project or just want to chat about tech? I'd love to hear
+                from you.</p>
+        </div>
+
+        <div class="contact-grid reveal">
+            <!-- Email Card -->
+            <a href="mailto:montecillokent019@gmail.com" class="contact-method-card" id="contact-email">
+                <div class="contact-method-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="3" />
+                        <path d="M2 7l10 7 10-7" />
+                    </svg>
+                </div>
+                <div class="contact-method-body">
+                    <span class="contact-method-label">Email</span>
+                    <span class="contact-method-value">montecillokent019@gmail.com</span>
+                </div>
+                <div class="contact-method-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Phone Card -->
+            <a href="tel:09487821200" class="contact-method-card" id="contact-phone">
+                <div class="contact-method-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z" />
+                    </svg>
+                </div>
+                <div class="contact-method-body">
+                    <span class="contact-method-label">Phone</span>
+                    <span class="contact-method-value">+63 948 782 1200</span>
+                </div>
+                <div class="contact-method-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <!-- Social Links -->
+        <div class="social-row reveal">
+            <span class="social-label">Find me on</span>
+            <div class="social-links">
+                <a href="https://github.com/" target="_blank" class="social-link" id="social-github"
+                    aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" class="social-link" id="social-linkedin"
+                    aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Scroll To Top -->
+    <button id="scroll-top" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="footer-logo">KENT.</span>
+                <p class="footer-tagline">Crafting seamless digital experiences,<br>one commit at a time.</p>
+            </div>
+            <nav class="footer-nav">
+                <a href="#work">Work</a>
+                <a href="#roots">Roots</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="footer-social">
+                <a href="https://github.com/" target="_blank" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                </a>
+                <a href="mailto:montecillokent019@gmail.com" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="3" />
+                        <path d="M2 7l10 7 10-7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Reymond Kent A. Montecillo</span>
+            <span class="footer-dot">·</span>
+            <span>B.S. Information Technology &amp; Fullstack Developer</span>
+        </div>
+    </footer>
+
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Three.js & Motion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
