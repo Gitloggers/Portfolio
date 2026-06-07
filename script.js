@@ -38,12 +38,11 @@ class AvatarVines {
     }
 
     grow() {
-        const { cx, cy, R } = this._avatarRect();
         const COUNT = 8;
         this.vines = Array.from({ length: COUNT }, (_, i) => {
             const angle = (i / COUNT) * Math.PI * 2 - Math.PI / 2;
             return {
-                angle, cx, cy, R,
+                angle,
                 length:    0,
                 maxLen:    60 + Math.random() * 55,
                 speed:     1.3 + Math.random() * 1.4,
@@ -60,8 +59,8 @@ class AvatarVines {
 
     retract() { this.vines.forEach(v => { v.growing = false; }); }
 
-    _vinePoint(vine, dist) {
-        const { angle, wobble, cx, cy, R } = vine;
+    _vinePoint(vine, dist, cx, cy, R) {
+        const { angle, wobble } = vine;
         const startX = cx + Math.cos(angle) * R;
         const startY = cy + Math.sin(angle) * R;
         const perp   = angle + Math.PI / 2;
@@ -96,6 +95,9 @@ class AvatarVines {
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         if (!this.running) return;
 
+        // Get updated avatar position every frame
+        const { cx, cy, R } = this._avatarRect();
+
         let anyAlive = false;
         this.vines.forEach(vine => {
             if (vine.growing) {
@@ -124,17 +126,17 @@ class AvatarVines {
             ctx.lineCap     = 'round';
             ctx.lineJoin    = 'round';
             ctx.beginPath();
-            const start = this._vinePoint(vine, 0);
+            const start = this._vinePoint(vine, 0, cx, cy, R);
             ctx.moveTo(start.x, start.y);
             for (let s = 1; s <= 30; s++) {
-                const p = this._vinePoint(vine, (s / 30) * vine.length);
+                const p = this._vinePoint(vine, (s / 30) * vine.length, cx, cy, R);
                 ctx.lineTo(p.x, p.y);
             }
             ctx.stroke();
 
             vine.leaves.forEach(leaf => {
                 if (leaf.at > vine.length) return;
-                const p = this._vinePoint(vine, leaf.at);
+                const p = this._vinePoint(vine, leaf.at, cx, cy, R);
                 const leafAngle = vine.angle + leaf.side * (Math.PI / 3 + Math.random() * 0.3);
                 this._drawLeaf(ctx, p.x, p.y, leafAngle, leaf.size, leaf.color);
             });
